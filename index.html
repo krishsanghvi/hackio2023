@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mealtry</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<h1>Mealtry</h1>
+<p>Healthy Dining Hall Meals Based on Your Body</p>
+
+<div class="options">
+    <label><input type="radio" name="dining-hall" checked> Kennedy</label>
+    <label><input type="radio" name="dining-hall"> Scott</label>
+    <label><input type="radio" name="dining-hall"> Morrill</label>
+</div>
+
+<div class="menu">
+    <p>Today's Menu - Saturday</p>
+    <ul>
+        <li>Grilled Chicken</li>
+        <li>Grilled Beef Burger</li>
+        <li>Pasta</li>
+        <li>Grains</li>
+        <li>Fries</li>
+    </ul>
+</div>
+
+<label>Age: <input id="age" type="number" placeholder="Enter your age"></label>
+<label>Weight: <input id="weight" type="number" placeholder="Enter your weight (lb)"></label>
+<div>
+    <label>Sex: </label>
+    <label><input id="sex" type="radio" name="gender" value="male"> Male</label>
+    <label><input id="sex" type="radio" name="gender" value="female"> Female</label>
+</div>
+<label>Height (Centimeter): <input id="height" type="text" placeholder="Enter your height"></label>
+<!-- <div>
+    <label>Diet Preference: </label>
+    <label><input id="diet" type="radio" name="diet" checked> Vegetarian</label>
+    <label><input id="diet" type="radio" name="diet"> Non-Vegetarian</label>
+</div> -->
+<button class="btn" onclick="storeUserInfo()">SUBMIT</button>
+<div id="recomended" class="suggestion"></div>
+<br>
+<div id="plan" class="suggestion"></div>
+    <!-- <p id="output"></p> -->
+    <!-- <p>Best lunch menu based on your information</p>
+    <ul>
+        <li>Grilled Chicken</li>
+        <li>Smoothie</li>
+        <li>Strawberries</li>
+        <li>Quinoa</li> 
+    </ul> -->
+
+<br>
+
+
+</body>
+</html>
