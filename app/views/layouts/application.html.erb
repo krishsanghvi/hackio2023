@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FoodApp</title>
+    <title>Mealtry</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,30 +12,5 @@
 
   <body>
     <%= yield %>
-    <%= form_with(model: @user_preference, url: user_preferences_path, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :calorie_target %>
-    <%= form.number_field :calorie_target %>
-  </div>
-
-  <div class="field">
-    <%= form.label :protein_target %>
-    <%= form.number_field :protein_target %>
-  </div>
-
-  <div class="field">
-    <%= form.label :carb_target %>
-    <%= form.number_field :carb_target %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fat_target %>
-    <%= form.number_field :fat_target %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
   </body>
 </html>
