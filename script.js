@@ -13,26 +13,47 @@ function storeUserInfo(){
 
     user_weight = user_weight / 2.205; //convert to kg
     
-    alert("Age: " + user_age + " Weight: " + user_weight + " Height: " + user_height + " Sex:" + user_sex);
-    
+    //alert("Age: " + user_age + " Weight: " + user_weight + " Height: " + user_height + " Sex:" + user_sex);
+    let shuffledMeals = shuffleMeals();
+
     //output.textContent = "TESTING DIV";
     //let diet = document.getElementById('diet');
-    outputMeals(user_age, user_weight, user_height, user_sex);
+    outputMeals(user_age, user_weight, user_height, user_sex, shuffledMeals);
     
 }   
 
-function outputMeals(age, weight, height, gender){
+function outputMeals(age, weight, height, gender, shuffledMeals){
+
     let recomended_nutrients = calculateMealNutrients(age, weight, height, gender);
     let outputRecomended = document.getElementById("recomended");
-    outputRecomended.textContent = "Cals:" + recomended_nutrients.calories + " Carbs: " + recomended_nutrients.carbs + " Protein: " + recomended_nutrients.protein + " Fats: " + recomended_nutrients.fats;
+    outputRecomended.innerHTML = `
+        <h2>Recommended Nutrient Intake for 1 Meal</h2>
+        <p>Calories: ${recomended_nutrients.calories.toFixed(2)} kcal</p>
+        <p>Protein: ${recomended_nutrients.protein.toFixed(2)} g</p>
+        <p>Carbs: ${recomended_nutrients.carbs.toFixed(2)} g</p>
+        <p>Fats: ${recomended_nutrients.fats.toFixed(2)} g</p>
+    `;
+
+    let plan = createMealPlan(recomended_nutrients, shuffledMeals);
+
+    let outputPlan = document.getElementById("plan");
+    outputPlan.innerHTML = `
+        <h2>Recommended Meal to Intake at Kennedy!</h2>
+        <p>- ${plan[0]}</p>
+        <p>- ${plan[1]}</p>
+        <p>- ${plan[2]}</p>
+    `;
+    //let recomended_nutrients = calculateMealNutrients(age, weight, height, gender);
+    //let outputRecomended = document.getElementById("recomended");
+    //outputRecomended.textContent = "Cals: " + recomended_nutrients.calories + " Carbs: " + recomended_nutrients.carbs + " Protein: " + recomended_nutrients.protein + "\n" + " Fats: " + recomended_nutrients.fats;
     //output = "TESTING DIV";//"Recommendation: " + recomended_nutrients;
     //document.write("Age: " + age + " Weight: " + weight + " Height: " + height + " Sex:" + gender);
     //document.write("Cals:" + recomended_nutrients.calories + " Carbs: " + recomended_nutrients.carbs + " Protein: " + recomended_nutrients.protein + " Fats: " + recomended_nutrients.fats);
-    let plan = createMealPlan(recomended_nutrients);
+    //let plan = createMealPlan(recomended_nutrients);
 
-    let outputPlan = document.getElementById("plan");
+    //let outputPlan = document.getElementById("plan");
 
-    outputPlan.textContent = plan;//+ meals[plan].calories;
+    //outputPlan.textContent = plan;//+ meals[plan].calories;
 
 
 }
@@ -510,15 +531,25 @@ const meals = [
     }
    ];
 
+function shuffleMeals() {
+    let shuffled = meals.slice(); // Clone the meals array
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
 
 function createMealPlan(target) {
     let current = { calories: 0, protein: 0, carbs: 0, fats: 0 };
     let plan = [];
     let list = [];
 
-    while (current.calories < target.calories && current.protein < target.protein && current.carbs < target.carbs && current.fats < target.fats) {
+    for(let i = 0; i < 3; i++){
+    //while (current.calories < target.calories && current.protein < target.protein && current.carbs < target.carbs && current.fats < target.fats) {
         let bestMeal = null;
         let bestScore = Infinity;
+        let mealsCopy = meals.slice();
 
         for (const meal of meals) {
             const score = Math.abs(target.calories - (current.calories + meal.calories)) / (100.87) +
@@ -540,11 +571,14 @@ function createMealPlan(target) {
             current.protein += bestMeal.protein;
             current.carbs += bestMeal.carbs;
             current.fats += bestMeal.fats;
+            const mealIndex = mealsCopy.indexOf(bestMeal);
+            if (mealIndex !== -1) {
+                mealsCopy.splice(mealIndex, 1);
+            }
         } else {
             break; // No suitable meal found to add, break out
         }
     }
-
     //document.write("Plan: " + plan);
     return plan;
 }

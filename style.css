@@ -13,8 +13,12 @@ h1 {
 
 p{ 
     text-align: center;
-
 }
+
+h2{
+    text-align: center;
+}
+
 .options {
     display: flex;
     justify-content: space-between;
